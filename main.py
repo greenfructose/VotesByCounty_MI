@@ -84,8 +84,10 @@ print('{} ######################################################################
 print(' *********{} 2020 Michigan Presidential Election Results by County{} *********'.format(bcolors.BOLD, bcolors.ENDC))
 print('{} ######################################################################### {}\n'.format(bcolors.BLUE, bcolors.ENDC))
 while True:
-    county_query = input('Enter a county: ')
+    county_query = input('Enter a county, or enter q to quit: ')
     county_query = county_query.upper()
+    if county_query == 'Q':
+        break
     if county_query == 'ALL':
         print('\n Results for all Counties: \n')
         for k, v in results_dict.items():
