@@ -81,10 +81,12 @@ for k, v in results_dict.items():
     results_dict[k]['DEMDifference'] = int(results_dict[k]['Biden']) - int(results_dict[k]['DEMCongress'])
     results_dict[k]['REPDifference'] = int(results_dict[k]['Trump']) - int(results_dict[k]['REPCongress'])
 print('{} ######################################################################### {}'.format(bcolors.RED, bcolors.ENDC))
-print(' *********{} 2020 Michigan Presidential Election Results by County{} *********'.format(bcolors.BOLD, bcolors.ENDC))
+print(' *********{} 2020 Michigan General Election Results by County{} *********'.format(bcolors.BOLD, bcolors.ENDC))
 print('{} ######################################################################### {}\n'.format(bcolors.BLUE, bcolors.ENDC))
 while True:
-    county_query = input('Enter a county, or enter q to quit: ')
+    print('Enter a county name or one of the below options to continue:\n')
+    print('q: Quit\nall: List all results\nl: List all counties\n')
+    county_query = input('Enter a county or option: ')
     county_query = county_query.upper()
     if county_query == 'Q':
         break
@@ -94,26 +96,30 @@ while True:
             print(k.capitalize(), ' County: ')
             for k2, v2 in v.items():
                 print(k2, ': ', v2)
+    if county_query == 'L':
+        print('List of all counties:\n')
+        for k, v in results_dict.items():
+            print(k.capitalize())
     else:
         print('\n Results for ', county_query, ' County: \n')
-        if county_query not in results_dict.items():
+        if county_query not in results_dict:
             print("{} {} County not found. Please try again.{}{}".format(bcolors.WARNING, bcolors.BOLD, bcolors.ENDC, bcolors.ENDC))
             continue
         for k, v in results_dict[county_query].items():
             if k == 'Trump' or k == 'TrumpPercent':
-                print(k, ": ", v)
+                print('{}{}{} : {}{}\n############'.format(bcolors.RED, bcolors.BOLD,  k, v, bcolors.ENDC))
             elif k == 'Biden' or k == 'BidenPercent':
-                print(k, ": ", v)
+                print('{}{}{} : {}{}\n############'.format(bcolors.BLUE, bcolors.BOLD, k, v, bcolors.ENDC))
             elif k == 'REPCongress' or k == 'REPCongressPercent':
-                print(k, ": ", v)
+                print('{}{}{} : {}{}\n############'.format(bcolors.RED, bcolors.BOLD, k, v, bcolors.ENDC))
             elif k == 'DEMCongress' or k == 'DEMCongressPercent':
-                print(k, ": ", v)
-            elif k == 'REPDifference' or k == 'DEMDifference':
-                print(k, ": ", v)
+                print('{}{}{} : {}{}\n############'.format(bcolors.BLUE, bcolors.BOLD, k, v, bcolors.ENDC))
+            elif k == 'REPDifference':
+                print('{}{}{} : {}{}\n############'.format(bcolors.RED, bcolors.BOLD,  k, v, bcolors.ENDC))
             elif k == 'DEMDifference' or k == 'DEMCongressPercent':
-                print(k, ": ", v)
+                print('{}{}{} : {}{}\n############'.format(bcolors.BLUE, bcolors.BOLD, k, v, bcolors.ENDC))
 
-        print('Total Votes: ', results_dict[county_query]['TotalVotes'])
-        print('Total Congress Votes: ', results_dict[county_query]['TotalCongress'])
-        print('Registered Voters: ', results_dict[county_query]['VotersRegistered'])
-        print('Turnout: ', results_dict[county_query]['Turnout'])
+        print('{}Total Votes: {}{}'.format(bcolors.BOLD, results_dict[county_query]['TotalVotes'], bcolors.ENDC))
+        print('{}Total Congress Votes: {}{}'.format(bcolors.BOLD, results_dict[county_query]['TotalCongress'], bcolors.ENDC))
+        print('{}Registered Voters: {}{}'.format(bcolors.BOLD, results_dict[county_query]['VotersRegistered'], bcolors.ENDC))
+        print('{}{}Turnout: {}{}\n'.format(bcolors.BOLD, bcolors.CYAN, results_dict[county_query]['Turnout'], bcolors.ENDC))
